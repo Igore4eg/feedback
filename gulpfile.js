@@ -53,6 +53,7 @@ import rimraf from 'gulp-rimraf'; // плагин для удаления фай
 import rename from 'gulp-rename';
 import imagemin from 'gulp-imagemin'; // плагин для сжатия PNG, JPEG, GIF и SVG изображений
 import jsImport  from 'gulp-js-import';
+import ghPages  from 'gulp-gh-pages';
 
 /* задачи */
 
@@ -154,6 +155,11 @@ gulp.task('watch', function () {
     gulp.watch(path.watch.img, gulp.series('image:build'));
     gulp.watch(path.watch.fonts, gulp.series('fonts:build'));
 });
+
+gulp.task('deploy', function() {
+    return gulp.src('./build/**/*')
+      .pipe(ghPages());
+  });
 
 // задача по умолчанию
 gulp.task('default', gulp.series(
